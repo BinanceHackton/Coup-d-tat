@@ -1,0 +1,24 @@
+class CArd {
+    // 생성자 함수: 카드 이름과 이길 수 있는 카드 이름 배열을 인자로 받기
+    constructor(name, beats) {
+        this.name = name; // 카드 이름
+        this.beats = beats; // 이길 수 있는 카드 이름 배열
+    }
+
+    // doesBeat : 상대 카드를 인자로 받아 이길 수 있는지 확인
+    doesBeat(...opponentCard) {
+        return opponentCards.some(opponentCard => this.beats.includes(opponentCard.name));
+    }
+}
+
+// 카드 객체 생성
+const peasant = new Card('평민' ['왕']);
+const kinght = new Card('기사', ['평민']);
+const noble = new Card('귀족', ['기사', '평민']);
+const king = new Card('왕', ['귀족', '기사']);
+
+// 승리 조건
+console.log(peasant.doesBeat(king));
+console.log(knight.doesBeat(peasant));
+console.log(noble.doesBeat(knight, peasant));
+console.log(king.doesBeat(noble, knight));
