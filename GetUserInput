@@ -1,0 +1,11 @@
+//사용자 입력 받기 함수
+function getUserInput(question) {
+    // Promise를 사용하여 비동기적으로 입력 처리
+    return new Promise((resolve) => {
+        // 사용자에게 질문 출력 및 입력 받기
+        r1.question(question, (answer) => {
+            // 입력이 완료되면 resolve 함수를 호출하여 사용자의 입력 값을 반환
+            resolve(answer);
+        });        
+    });
+};
