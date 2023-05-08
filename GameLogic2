@@ -1,0 +1,151 @@
+const { resolve } = require('path');
+const readline = require('readline');
+const r1 = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+// 카드 객체 생성 함수
+function createCard(name) {
+  return {
+    name,
+    doesBeat: (opponent) => {
+      // 게임 규칙에 따라 카드 간 승패를 계산하여 true/false를 반환
+      switch (name) {
+        case '왕':
+          return opponent.name === '귀족' || opponent.name === '평민';
+        case '귀족':
+          return opponent.name === '기사' || opponent.name === '평민';
+        case '기사':
+          return opponent.name === '왕' || opponent.name === '귀족';
+        case '평민':
+          return false;
+      }
+    },
+  };
+}
+// 사용자와 상대방에게 카드를 공평하게 분배하는 함수
+function distributeCards(cardCounts) {
+    const deck = []; //덱 생성
+
+    // 각 카드 이름과 개수에 대해 반복
+    for (const [cardName, count] of Object.entries(cardCounts)) {
+        // 카드 개수만큼 반복
+        for (let i = 1; i <= count; i++) {
+            // 카드 객체 생성
+            const card = createCard(cardName);
+            // 덱에 카드 추가
+            deck.push(card);
+        }
+    }
+
+    // 완성된 덱 반환
+    return deck;
+}
+
+//게임 로직
+(async () => {
+    const totalRounds = 9; //게임 총 라운드
+    const cardCounts = { 왕: 3, 귀족: 2, 기사: 3, 평민: 2}; // 각 카드 종류별 장수
+
+    //플레이어가 가지는 카드 덱 생성
+    const userDeck = distributeCards(cardCounts);
+    const opponentDeck = distributeCards(cardCounts);
+
+    let userScore = 0; // 플레이어 1의 점수
+    let opponentScore = 0; //플레이어 2의 점수
+    
+    let userKingWins = 0;
+    let opponentKingWins = 0;
+
+    //사용자 입력 받기 함수
+    async function getUserInput(question, timeout, availableChoices) {
+    // Promise를 사용하여 비동기적으로 입력 처리
+        return new Promise((resolve, reject) => {
+        // 사용자에게 질문 출력 및 입력 받기
+        r1.question(question, (answer) => {
+            // 입력이 완료되면 resolve 함수를 호출하여 사용자의 입력 값을 반환
+            resolve(answer);
+         });  
+         
+         setTimeout(() => {
+            const randomChoice = availableChoices[Math.floor(Math.random() * availableChoices.length)];
+            console.log(`시간 초과! 무작위로 선택된 카드 : ${randomChoice}`);
+            resolve(randomChoice);
+         }, timeout);
+        });
+    };
+
+    // 총 라운드 수 만큼 게임 실행
+    for (let round = 1; round <= totalRounds; round++) {
+        console.log(`라운드 ${round}`);
+
+        //사용자가 선택한 카드 
+        const userCardIndex = await getUserInput('플레이어 1의 카드를 선택하세요 (0-왕, 1-귀족, 2-기사, 3-평민): ', 10000, ['0', '1', '2', '3']);
+        const userCard = userDeck.splice(userCardIndex, 1)[0]; //선택한 카드를 덱에서 제거하고 저장
+
+        //상대방이 선택한 카드
+        const opponentCardIndex = await getUserInput('플레이어 2의 카드를 선택하세요 (0-왕, 1-귀족, 2-기사, 3-평민): ', 10000, ['0', '1', '2', '3']);
+        const opponentCard = opponentDeck.splice(opponentCardIndex, 1)[0]; // 선택한 카드를 덱에서 제거하고 저장
+
+        console.log('플레이어 1의 카드: ${userCard.name}');
+        console.log('플레이어 2의 카드: ${opponentCard.name}');
+        
+        // 승패 결과 계산
+        if (userCard.doesBeat(opponentCard)) {
+            console.log('플레이어 1 승리!');
+            userScore += userCard.name === '평민' && opponentCard.name === '왕' ? 2 : 1; //특정 상황에서 추가 점수 부여
+        } else if (opponentCard.doesBeat(userCard)) {
+            console.log('플레이어 2 승리 !');
+            opponentScore += opponentCard.name === '평민' && userCard.name === '왕' ? 2 : 1; // 특정 상황에서 추가 점수 부여
+        } else {
+            console.log('무승부!');
+             // 무승부인 경우 각 플레이어의 점수에서 1점씩 차감하되, 0점 이하로는 안 떨어지게함
+             userScore = Math.max(userScore - 1, 0);
+             opponentScore = Math.max(opponentScore - 1, 0);
+        }
+
+        console.log('현재 스코어 - 플레이어 1: ${userScore}, 플레이어 2: ${opponentScore}\n');
+
+        if (userCard.name === '평민' && opponentCard.name === '왕') {
+            userKingWins++;
+        } else if (opponentCard.name === '평민' && userCard.name === '왕'){
+            opponentKingWins++;
+        }
+         
+        await new Promise((resolve) => setTimeout(resolve, 15000));
+        
+    }   
+
+        if (userScore === opponentScore) {
+            if (userKingWins > opponentKingWins) {
+                console.log('평민이 왕을 더 많이 이겼으므로 플레이어 1이 승리했습니다.');
+            } else if (opponentKingWin > userKingWins) {
+                console.log('평민이 왕을 더 많이 이겼으므로 플레이어 2가 승리했습니다.');
+            }
+        }
+
+        // 최종 결과 출력 
+        alert.log('게임이 종료되었습니다.');
+        if (userScore > opponentScore) {
+            alert.log ('플레이어 1이 이겼습니다!');
+            updateScores('user');
+        } else if (userScore < opponentScore) {
+            alert.log ('플레이어 2가 이겼습니다!');
+            updateScores('opponent');
+        } 
+
+        function updateScores(winner) {
+            const scoreChange = 30; // 승리/패배 시 점수 차이
+        
+            if (winner === 'user') {
+                userScore += scoreChange;
+                opponentScore -= scoreChange;
+            } else if (winner === 'opponent') {
+                opponentScore += scoreChange;
+                userScore -= scoreChange;
+            }
+        }
+        
+        r1.close();
+})();
