@@ -1,5 +1,0 @@
-// 현재 라운드와 게임 점수를 출력하는 함수
-function printRoundAndScores(round, userScore, opponentScore) {
-    console.log(`\n라운드 ${round}`);
-    console.log(`현재 스코어 - 플레이어 1: ${userScore}, 플레이어 2: ${opponentScore}`);
-  }
