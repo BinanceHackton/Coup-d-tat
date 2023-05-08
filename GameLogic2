@@ -1,3 +1,5 @@
+// 무승부 기점으로 평민이 왕을 이긴 횟수로 게임이 결정나는 버전
+
 const { resolve } = require('path');
 const readline = require('readline');
 const r1 = readline.createInterface({
