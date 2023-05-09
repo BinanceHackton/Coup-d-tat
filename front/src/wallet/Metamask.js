@@ -15,6 +15,6 @@ class WalletConnector {
     }
 }
 export const meta = () => {
-    const s = new WalletConnector()
-    s.connectMetamask()
+    const connect = new WalletConnector()
+    connect.connectMetamask()
 }
