@@ -40,7 +40,7 @@ function Navigation() {
     return (
         <>
             <NavDiv>
-                <LogoText>coup d'État</LogoText>
+                <LogoText>COUP D'ETAT</LogoText>
                 <ImageDiv>
                     {images.map((image, index) => (
                         <NavImage key={index} img={image.img} text={image.text} onClick={handleButton} handler={image.handler} />
