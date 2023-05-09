@@ -151,3 +151,4 @@ function distributeCards(cardCounts) {
         
         r1.close();
 })();
+
