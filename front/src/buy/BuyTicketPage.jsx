@@ -18,13 +18,16 @@ import CloseIcon from '../img/Close.svg'
 import TicketIcon from '../img/Ticket.svg'
 import { useRecoilState } from 'recoil'
 import { buyButtonState } from '../atom/atom'
+import { useState } from 'react'
 function BuyTicketPage() {
     const [buyTogle, setBuyTogle] = useRecoilState(buyButtonState)
-
+    const [ticket, setTicket] = useState(0)
     const onClick = () => {
         buyTogle ? setBuyTogle(false) : setBuyTogle(true)
     }
     const onSubmit = (e) => {
+        e.preventDefault()
+        console.log(ticket)
     }
     return (
         <BuyTicketDiv onSubmit={onSubmit}>
@@ -40,13 +43,13 @@ function BuyTicketPage() {
                 </TicketTextDiv>
             </TicketInfoDiv>
             <TicketCountDiv>
-                <TicketCountInput placeholder='input' type='number' />
+                <TicketCountInput name='ticket' placeholder='input' type='number' onChange={(e) => setTicket(e.target.value)} />
             </TicketCountDiv>
             <TicketDetailDiv>
                 <TicketDetailText>Ticket x 50 = Silver Ticket x 1</TicketDetailText>
                 <TicketDetailText>Ticket x 100 = Gold Ticket x 1</TicketDetailText>
             </TicketDetailDiv>
-            <TicketBuyButton type='submit' disabled>Purchase</TicketBuyButton>
+            <TicketBuyButton type='submit'>Purchase</TicketBuyButton>
         </BuyTicketDiv>
     )
 }
