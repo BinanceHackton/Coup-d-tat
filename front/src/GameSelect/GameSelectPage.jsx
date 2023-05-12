@@ -11,10 +11,13 @@ import ClosedIcon from '../img/DoorClosed.svg';
 import OpenIcon from '../img/DoorOpen.svg';
 import { GameButtonState } from '../atom/atom';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 const GameLevel = (props) => {
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
     const onClick = () => {
         open ? setOpen(false) : setOpen(true)
+        navigate(`/game/${props.text}`)
     }
     return (
         <GameSelectSort>
@@ -42,7 +45,7 @@ function GameSelectPage() {
                     <GameLevel key={index} image={level.image} text={level.text} />
                 ))}
             </GameSlectImageDiv>
-            <GameSelectExit onClick={onClick}>
+            <GameSelectExit onClick={() => onClick()}>
                 Exit
             </GameSelectExit>
         </GameSelectDiv>
