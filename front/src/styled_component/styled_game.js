@@ -93,6 +93,7 @@ export const PointerCardDiv = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-width: 120px;
 `
 
 export const PointerCardText = styled.div`
@@ -102,13 +103,30 @@ export const CountText = styled.div`
     font-size: 20px;
 `
 export const ResultDiv = styled.div`
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 65vh;
+    border-radius: 10px;
+    background-color: white;
 `
 export const ResultCardImg = styled.img`
-
+    width: 309px;
+    height: 480px;
 `
 export const VersusDiv = styled.div`
-
+    display: flex;
+`
+export const VersusText = styled.div`
+    text-align: center;
+    font-size: 2em;
 `
 export const SelectModal = styled.div` 
     position: absolute;
@@ -143,4 +161,23 @@ export const SelectButton = styled.button`
     border: none;
     outline: none;
     border-radius: 5px;
+`
+export const TurnImageDiv = styled.div`
+    position: absolute;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+`
+export const TurnImageText = styled.div`
+
+`
+export const TurnImage = styled.div`
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: ${props => props.active ? ('#22FFAF') : ('#000000')};
+    filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.2));
 `

@@ -4,6 +4,8 @@ import knight from '../gameImage/Knight.svg'
 import noble from '../gameImage/Noble.svg'
 import peasant from '../gameImage/Peasant.svg'
 import CardBack from '../gameImage/CardBack.svg'
+import LodingIcon from '../img/Loding.svg'
+
 import {
     CardImage,
     CountDiv,
@@ -25,7 +27,11 @@ import {
     SelectButton,
     SelectText,
     PointerCardDiv,
-    PointerCardText
+    PointerCardText,
+    TurnImage,
+    TurnImageText,
+    TurnImageDiv,
+    VersusText
 } from '../styled_component/styled_game'
 class GameView extends Component {
     constructor(props) {
@@ -52,10 +58,15 @@ class GameView extends Component {
             isTogle: false,
             chose: '',
             isCardTogle: false,
+            isTurn: true,
+            userCardImage: LodingIcon,
+            opponentCardImage: LodingIcon,
+            isResult: false,
+            isVersus: `VS`
         };
     }
 
-    createCard(name) {
+    createCard(name, image) {
         return {
             name,
             doesBeat: (opponent) => {
@@ -71,17 +82,19 @@ class GameView extends Component {
                         return opponent.name === 'king';
                 }
             },
+            image
         };
     }
 
     distributeCards(cardCounts) {
         const deck = []; //덱 생성
+        const cardIconsList = { king: king, knight: knight, noble: noble, peasant: peasant }
         // 각 카드 이름과 개수에 대해 반복
         for (const [cardName, count] of Object.entries(cardCounts)) {
             // 카드 개수만큼 반복
             for (let i = 1; i <= count; i++) {
                 // 카드 객체 생성
-                const card = this.createCard(cardName);
+                const card = this.createCard(cardName, cardIconsList[cardName]);
                 // 덱에 카드 추가
                 deck.push(card);
             }
@@ -113,6 +126,11 @@ class GameView extends Component {
             isTogle: false,
             chose: '',
             isCardTogle: false,
+            isTurn: true,
+            userCardImage: LodingIcon,
+            opponentCardImage: LodingIcon,
+            isResult: false,
+            isVersus: `VS`
         })
     }
     selectCard(number) {
@@ -182,7 +200,6 @@ class GameView extends Component {
         }
         const totalRounds = 9; //게임 총 라운드
         const cardCounts = { king: 2, noble: 2, knight: 2, peasant: 3 }; // 각 카드 종류별 장수
-
         //플레이어가 가지는 카드 덱 생성
         const userDeck = this.distributeCards(cardCounts);
         const opponentDeck = this.distributeCards(cardCounts);
@@ -194,22 +211,28 @@ class GameView extends Component {
         // 총 라운드 수 만큼 게임 실행
         for (let round = 1; round <= totalRounds; round++) {
 
-            this.setState({ round }); //라운드 업데이트
+            this.setState({
+                round,
+                isTurn: true,
+                isTogle: false,
+                isResult: false,
+                isVersus: 'VS'
+            }); //라운드 업데이트
             console.log(`라운드 ${round}`);
 
             //사용자가 선택한 카드 
             const userCardIndex = await this.getUserInput(10000, userDeck, 'userTimeRemaining');
-            console.log(userCardIndex)
             const userCard = userDeck.splice(userCardIndex, 1)[0]; //선택한 카드를 덱에서 제거하고 저장
             let count = this.state.deckCount
             count = { ...count, [userCard.name]: count[userCard.name] - 1 }
             this.setState({
                 deckCount: count,
                 chose: '',
-                isCardTogle: false
+                isCardTogle: false,
+                isTurn: false
             });
             //상대방이 선택한 카드
-            const opponentCardIndex = await this.getUserInput(10000, opponentDeck, 'opponentTimeRemaining');
+            const opponentCardIndex = await this.getUserInput(1000, opponentDeck, 'opponentTimeRemaining');
             const opponentCard = opponentDeck.splice(opponentCardIndex, 1)[0]; // 선택한 카드를 덱에서 제거하고 저장
             console.log(userDeck, userCard, userCardIndex)
             console.log(opponentDeck, opponentCard, opponentCardIndex)
@@ -222,16 +245,32 @@ class GameView extends Component {
                 opponentTimeRemaining: 10,
             })
             // 승패 결과 계산
+            this.setState({
+                userCardImage: userCard.image,
+                opponentCardImage: opponentCard.image,
+                isResult: true
+            })
             if (userCard.doesBeat(opponentCard)) {
                 console.log('플레이어 1 승리!');
                 userScore += userCard.name === 'peasant' && opponentCard.name === 'king' ? 2 : 1; //특정 상황에서 추가 점수 부여
+                this.setState({
+                    isVersus: `P1 Win`
+                })
             } else if (opponentCard.doesBeat(userCard)) {
                 console.log('플레이어 2 승리 !');
                 opponentScore += opponentCard.name === 'peasant' && userCard.name === 'king' ? 2 : 1; // 특정 상황에서 추가 점수 부여
+                this.setState({
+                    isVersus: `Computer Win`
+                })
             } else {
+                //무승부인 경우 점수변동 없음
                 console.log('무승부!');
-                // 무승부인 경우 각 플레이어의 점수에서 1점씩 차감하되, 0점 이하로는 안 떨어지게함
+                this.setState({
+                    isVersus: `Draw`
+                })
             }
+            console.log(userCard.image, opponentCard.image)
+
             this.setState({ userScore, opponentScore }); // 점수 업데이트
             console.log(`현재 스코어 - 플레이어 1: ${userScore}, 플레이어 2: ${opponentScore}\n`);
 
@@ -240,8 +279,7 @@ class GameView extends Component {
             } else if (opponentCard.name === 'peasant' && userCard.name === 'king') {
                 opponentKingWins++;
             }
-
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 3000));
 
         }
 
@@ -265,7 +303,7 @@ class GameView extends Component {
         this.setState({ isGameStarted: false });
     }
     render() {
-        const { userScore, opponentScore, round, isGameStarted, userTimeRemaining, opponentTimeRemaining, userCard, opponentCard, deckCount, isTogle, isCardTogle, chose } = this.state;
+        const { userScore, opponentScore, round, isGameStarted, userTimeRemaining, opponentTimeRemaining, userCard, opponentCard, deckCount, isTogle, isCardTogle, chose, isTurn, userCardImage, opponentCardImage, isResult, isVersus } = this.state;
         const cardImages = [CardBack, CardBack, CardBack, CardBack]
         const characterIcons = [[peasant, 'peasant'], [knight, 'knight'], [noble, 'noble'], [king, 'king']]
         return (
@@ -278,21 +316,32 @@ class GameView extends Component {
                     </CardImageDiv>
                     <RoundDiv>Round: {round}</RoundDiv>
                     <TimeBoxDiv>
+                        <TurnImageDiv>
+                            <TurnImage active={isTurn} />
+                            <TurnImageText>{isTurn ? ('Turn') : ('Wait')}</TurnImageText>
+                        </TurnImageDiv>
                         <PointerCardDiv>
-                            <PointerCardText>Computer: {opponentScore}</PointerCardText>
-                            <PointerCardText>Card: {opponentCard}</PointerCardText>
+                            <PointerCardText>User: {userScore}</PointerCardText>
+                            <PointerCardText>Card: {userCard}</PointerCardText>
                         </PointerCardDiv>
                         <TimeBox>{userTimeRemaining}</TimeBox>
                         <TimeBox>{opponentTimeRemaining}</TimeBox>
                         <PointerCardDiv>
-                            <PointerCardText>User: {userScore}</PointerCardText>
-                            <PointerCardText>Card: {userCard}</PointerCardText>
+                            <PointerCardText>Computer: {opponentScore}</PointerCardText>
+                            <PointerCardText>Card: {opponentCard}</PointerCardText>
                         </PointerCardDiv>
                     </TimeBoxDiv>
                     <CardImageDiv>
                         {characterIcons.map((e, index) =>
                             <CountDiv>
-                                {isTogle ? (
+                                {isResult ? (<ResultDiv>
+                                    <ResultCardImg src={userCardImage} />
+                                    <VersusDiv>
+                                        <VersusText>{isVersus}</VersusText>
+                                    </VersusDiv>
+                                    <ResultCardImg src={opponentCardImage} />
+                                </ResultDiv>) : (null)}
+                                {isTogle && isTurn ? (
                                     <SelectModal>
                                         <SelectText>{`${chose} Chose?`}</SelectText>
                                         <SelectButtonDiv>
