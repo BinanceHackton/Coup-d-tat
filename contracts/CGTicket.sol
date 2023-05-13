@@ -13,8 +13,9 @@ contract CGTicket is ERC721Enumerable, Ownable {
     Counters.Counter private _tokenIds;
 
     uint public constant MAX_SUPPLY = 100;
-    uint public constant PRICE = 0.01 ether;
-    uint public constant MAX_PER_MINT = 2;
+    uint public constant PRICE = 0.00001 ether;
+
+    uint public constant MAX_PER_MINT = 5;
     
     string public baseTokenURI;
     
@@ -25,8 +26,8 @@ contract CGTicket is ERC721Enumerable, Ownable {
     function reserveNFTs() public onlyOwner {
         uint totalMinted = _tokenIds.current();
 
-        require(totalMinted.add(4) < MAX_SUPPLY, "Not enough NFTs left to reserve");
-        _mintSingleNFT();
+        require(totalMinted.add(5) < MAX_SUPPLY, "Not enough NFTs left to reserve");
+        _mintSingleNFT(); 
     }
     
     function _baseURI() internal view virtual override returns (string memory) {
