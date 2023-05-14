@@ -11,10 +11,10 @@ Our team collaborated using GitHub and DISCORD. We shared our work progress and 
 
 ###### Team Members
 
-1.** Oneseok Choi** : Frontend & Design
-2. **Yechan Park **: Game Logic 
-3.** Myeongseog Kim** : Smart Contract
-4.** Hangmin Cho** : Smart Contract
+1.**Oneseok Choi** : Frontend & Design
+2.**Yechan Park**: Game Logic 
+3.**Myeongseog Kim** : Smart Contract
+4.**Hangmin Cho** : Smart Contract
 
 -------------------------------------------------------------------------------------------------------------------
 
