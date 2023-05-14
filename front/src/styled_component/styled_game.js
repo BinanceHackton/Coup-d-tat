@@ -115,7 +115,8 @@ export const ResultDiv = styled.div`
     width: 70vw;
     height: 65vh;
     border-radius: 10px;
-    background-color: white;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C7CBD3 100%);
+    filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
 `
 export const ResultCardImg = styled.img`
     width: 309px;
