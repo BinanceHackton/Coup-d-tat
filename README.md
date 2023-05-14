@@ -1,28 +1,8 @@
 # Resistance Girls
 
----------------------------------------------------------------------------------------------------------------------
-
-## Team Introduction
-Hello! We are a passionate team coming together for a game project. Each member of our team brings experience and expertise in their respective fields, and we share a passion and vision for **BlockChain**
-
-Our team collaborated using GitHub and DISCORD. We shared our work progress and status on GitHub, while DISCORD served as a platform for discussing the project's direction, sharing technical concepts, and conducting code reviews.
+![image](https://github.com/BinanceHackton/Coup-d-tat/assets/75840431/6296f9b9-1689-4ea6-90ed-741819cd1549)
 
 
-
-#### Team Members
-
-###### Frontend & Design
-
-<a href="https://github.com/c0c0pang"><img src="https://avatars.githubusercontent.com/u/91197026?v=4" style="width:10em"></a> 
-
-###### Game Logic 
-
-<a href="https://github.com/Roderx"><img src="https://avatars.githubusercontent.com/u/13895568?v=4" style="width:10em"></a>
-
-###### Smart Contract
-
-<a href="https://github.com/cacaocoffee"><img src="https://avatars.githubusercontent.com/u/75840431?v=4" style="width:10em"></a> 
-<a href="https://github.com/ChoHangMin"><img src="https://avatars.githubusercontent.com/u/118239641?v=4" style="width:10em"></a> 
 
 -------------------------------------------------------------------------------------------------------------------
 
@@ -66,6 +46,22 @@ Additionally, the winner will be rewarded with a certain amount of points, the l
 
 * The introduction of a ranking system will encourage player participation, and players with high rankings will receive special NFTs that are exclusively issued, providing them with a richer collection experience.
 
+--- 
+
+#### Team Members
+
+###### Frontend & Design
+
+<a href="https://github.com/c0c0pang"><img src="https://avatars.githubusercontent.com/u/91197026?v=4" style="width:10em"></a> 
+
+###### Game Logic 
+
+<a href="https://github.com/Roderx"><img src="https://avatars.githubusercontent.com/u/13895568?v=4" style="width:10em"></a>
+
+###### Smart Contract
+
+<a href="https://github.com/cacaocoffee"><img src="https://avatars.githubusercontent.com/u/75840431?v=4" style="width:10em"></a> 
+<a href="https://github.com/ChoHangMin"><img src="https://avatars.githubusercontent.com/u/118239641?v=4" style="width:10em"></a> 
 
 
 
