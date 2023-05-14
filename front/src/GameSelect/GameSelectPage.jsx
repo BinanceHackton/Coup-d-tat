@@ -9,7 +9,7 @@ import {
 } from '../styled_component/styled_gameSelect';
 import ClosedIcon from '../img/DoorClosed.svg';
 import OpenIcon from '../img/DoorOpen.svg';
-import { GameButtonState } from '../atom/atom';
+import { gameButtonState } from '../atom/atom';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 const GameLevel = (props) => {
@@ -33,7 +33,7 @@ function GameSelectPage() {
         { image: ClosedIcon, text: 'Silver' },
         { image: ClosedIcon, text: 'Gold' },
     ];
-    const [gameTogle, setGameTogle] = useRecoilState(GameButtonState)
+    const [gameTogle, setGameTogle] = useRecoilState(gameButtonState)
 
     const onClick = () => {
         gameTogle ? setGameTogle(false) : setGameTogle(true)

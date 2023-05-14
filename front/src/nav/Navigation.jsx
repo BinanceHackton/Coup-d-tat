@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 import {
     NavDiv,
     LogoText,
@@ -10,11 +10,8 @@ import {
 import RankIcon from '../img/Rank.svg'
 import WalletIcon from '../img/Wallet.svg'
 import WarehouseIcon from '../img/Warehouse.svg'
-import { meta } from '../wallet/Metamask'
-import { rank } from '../rank/Rank'
-import { exchange } from '../exchange/Exchange'
 import { useRecoilState } from 'recoil'
-import { NavButtonState } from '../atom/atom'
+import { navButtonState } from '../atom/atom'
 import ConnectPage from '../wallet/ConnectPage'
 const images = [{ img: RankIcon, text: 'Rank', handler: 'rank' }, { img: WarehouseIcon, text: 'Exchange', handler: 'exchange' }, { img: WalletIcon, text: 'Wallet', handler: 'wallet' }];
 
@@ -27,7 +24,7 @@ function NavImage(props) {
     );
 }
 function Navigation() {
-    const [select, setSelect] = useRecoilState(NavButtonState)
+    const [select, setSelect] = useRecoilState(navButtonState)
     const handleButton = (handler) => {
         setSelect({ ...select, [handler]: true })
     }
@@ -40,7 +37,7 @@ function Navigation() {
     return (
         <>
             <NavDiv>
-                <LogoText>COUP D'ETAT</LogoText>
+                <LogoText>Resistance Girls</LogoText>
                 <ImageDiv>
                     {images.map((image, index) => (
                         <NavImage key={index} img={image.img} text={image.text} onClick={handleButton} handler={image.handler} />
