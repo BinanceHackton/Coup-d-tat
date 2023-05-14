@@ -24,7 +24,8 @@ export const CloseButton = styled.img`
 export const TicketInfoDiv = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    gap: 30px;
     padding-bottom: 5px;
 `
 export const TicketImage = styled.img`
