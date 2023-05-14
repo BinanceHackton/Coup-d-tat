@@ -7,7 +7,6 @@ import Footer from './footer/Footer';
 import Content from './contents/Content';
 import { RecoilRoot } from 'recoil';
 import GameView from './game/GameView';
-
 function AppContent() {
   const location = useLocation();
   const isGameRoute = location.pathname.startsWith('/game/');
@@ -20,7 +19,6 @@ function AppContent() {
         <Route path='' element={<Content />} />
         <Route path='/game/:door' element={<GameView />} />
       </Routes>
-      {!isGameRoute && <Footer />}
     </>
   );
 }
