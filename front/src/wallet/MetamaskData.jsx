@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
+import { useRecoilState } from 'recoil';
+import { walletInfoState } from '../atom/atom';
+import { TicketBox } from '../buy/TicketData';
 
-function useMetamask() {
-    const [account, setAccount] = useState(null);
-    const [balance, setBalance] = useState(null);
-    const [networkId, setNetworkId] = useState(null);
-    const [networkName, setNetworkName] = useState(null);
+export const MetamaskData = () => {
+    const [data, setData] = useRecoilState(walletInfoState)
     const getNetworkName = (id) => {
         switch (id) {
             case 1:
@@ -35,25 +35,28 @@ function useMetamask() {
                 // 계정 정보 가져오기
                 const accounts = await web3.eth.getAccounts();
                 if (accounts.length > 0) {
-                    setAccount(accounts[0]);
-
+                    const account = accounts[0];
                     // 잔액 가져오기
-                    const userBalance = await web3.eth.getBalance(accounts[0]);
-                    setBalance(web3.utils.fromWei(userBalance, 'ether'));
+                    const userBalance = await web3.eth.getBalance(account);
+                    const balance = web3.utils.fromWei(userBalance, 'ether');
+                    const networkId = await web3.eth.net.getId();
+                    const networkName = getNetworkName(networkId);
+                    const ticketToken = await TicketBox()
+                    setData({
+                        account: account,
+                        balance: balance,
+                        networkId: networkId,
+                        networkName: networkName,
+                        ticketToken: ticketToken
+                    });
                 }
-                const networkId = await web3.eth.net.getId();
-                setNetworkId(networkId);
-                const networkName = getNetworkName(networkId);
-                setNetworkName(networkName);
             } else {
                 alert('메타마스크를 설치해 주세요.');
             }
         };
 
         connect();
-    }, []);
+    }, []); // 의존성 배열이 빈 배열이므로 오류가 발생하지 않습니다.
 
-    return { account, balance, networkId, networkName };
+    return data;
 };
-
-export default useMetamask;
