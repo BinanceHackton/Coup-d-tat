@@ -9,15 +9,20 @@ Our team collaborated using GitHub and DISCORD. We shared our work progress and 
 
 
 
-###### Team Members
+#### Team Members
 
-1.**Oneseok Choi** : Frontend & Design
-![image](https://github.com/BinanceHackton/Coup-d-tat/assets/75840431/29547317-093d-4039-9397-e5451e7bbd39)
-2.**Yechan Park**: Game Logic 
+###### Frontend & Design
 
-3.**Myeongseog Kim** : Smart Contract
+<a href="https://github.com/c0c0pang"><img src="https://avatars.githubusercontent.com/u/91197026?v=4" style="width:10em"></a> 
 
-4.**Hangmin Cho** : Smart Contract
+###### Game Logic 
+
+<a href="https://github.com/Roderx"><img src="https://avatars.githubusercontent.com/u/13895568?v=4" style="width:10em"></a>
+
+###### Smart Contract
+
+<a href="https://github.com/cacaocoffee"><img src="https://avatars.githubusercontent.com/u/75840431?v=4" style="width:10em"></a> 
+<a href="https://github.com/ChoHangMin"><img src="https://avatars.githubusercontent.com/u/118239641?v=4" style="width:10em"></a> 
 
 -------------------------------------------------------------------------------------------------------------------
 
