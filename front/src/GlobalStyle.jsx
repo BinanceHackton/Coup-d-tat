@@ -9,6 +9,6 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0px;
         margin: 0px;
         color: black;
-        font-family: 'Orkney_M';
+        font-family: "Maple";
     }
 `;
