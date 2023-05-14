@@ -37,7 +37,7 @@ Our team collaborated using GitHub and DISCORD. We shared our work progress and 
 Additionally, the winner will be rewarded with a certain amount of points, the loser will lose a certain amount of points, which will be recorded in the rankings.
 
 ###### Game Rules
-* The game is played in a 1v1 format a total of 9 rounds. In each round, both players must choose and play one card from their own deck. Each deck consists of 2 king cards, 2 noble cards, 3 knight cards, and 2 commoner cards. When a player's card defeats the opponent's card, the player is awared 1 point. If cards of the same rank are played, it results in a draw and both players are awarded 0 points. 
+* The game is played in a 1v1 format a total of 9 rounds. In each round, both players must choose and play one card from their own deck. Each deck consists of 2 king cards, 2 noble cards, 2 knight cards, and 3 commoner cards. When a player's card defeats the opponent's card, the player is awared 1 point. If cards of the same rank are played, it results in a draw and both players are awarded 0 points. 
 
 * However, if a commoner card captures a king card, it awards 2 points to encourage psychological and strategic battles between players. The game follows a point-based system, so in the event of a tie, the player who captured more king cards with commoner cards will be declared the winner.
 
